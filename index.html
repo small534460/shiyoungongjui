@@ -124,6 +124,7 @@
       gap:12px;
       color:var(--muted);
       font-size:13px;
+      flex-wrap:wrap;
     }
     .small{
       color:var(--muted);
@@ -136,41 +137,45 @@
   </style>
 </head>
 <body>
-  <main class="wrap" role="main">
+  <main class="wrap" role="main" aria-labelledby="page-title">
     <header>
-      <div class="logo">S3</div>
+      <div class="logo" aria-hidden="true">S3</div>
       <div>
-        <h1>Small 3 的个人领域</h1>
+        <h1 id="page-title">Small 3 的个人领域</h1>
         <div class="subtitle">使用工具</div>
       </div>
     </header>
 
-    <section class="content">
-      <div class="intro">
-        太好了！我是 Small 3，这里存放实用工具。
-      </div>
+    <section class="content" aria-label="主要内容">
+      <p class="intro">太好了！我是 Small 3，这里存放实用工具与收藏链接。</p>
 
       <h2 style="margin:0 0 10px 0;font-size:14px;color:var(--muted)">—— SMALL 3 领域 ——</h2>
 
       <ul class="links" aria-label="推荐链接">
         <li>
           <a class="card" href="https://www.bilibili.com/video/BV11gPoeTEBY/?spm_id_from=333.337.search-card.all.click" target="_blank" rel="noopener noreferrer">
-            <div class="title">IDM破解版</div>
+            <div class="title">IDM 相关视频</div>
+            <div class="desc">B站视频教程/资源（外部链接）</div>
           </a>
         </li>
         <li>
           <a class="card" href="https://boosterx.org/zh/" target="_blank" rel="noopener noreferrer">
-            <div class="title">BoosterX-性能优化工具</div>
+            <div class="title">BoosterX — 性能优化工具</div>
+            <div class="desc">性能分析与优化工具站点</div>
           </a>
         </li>
         <li>
-              <a class="card" href="https://github.com/henrypp/memreduct/releases" target="_blank" rel="noopener noreferrer">
-            <div class="title">Mem Reduct-内存清理工具</div>
+          <a class="card" href="https://github.com/henrypp/memreduct/releases" target="_blank" rel="noopener noreferrer">
+            <div class="title">Mem Reduct — 内存清理工具</div>
+            <div class="desc">GitHub Releases 页面</div>
           </a>
         </li>
         <li>
-              <a class="card" href="https://geekuninstaller.com/" target="_blank" rel="noopener noreferrer">
-            <div class="title">geek-卸载工具</div>
+          <a class="card" href="https://geekuninstaller.com/" target="_blank" rel="noopener noreferrer">
+            <div class="title">Geek Uninstaller — 卸载工具</div>
+            <div class="desc">官方站点（外部链接）</div>
+          </a>
+        </li>
       </ul>
     </section>
 
