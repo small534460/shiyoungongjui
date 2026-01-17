@@ -17,18 +17,24 @@
       font-family: "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
       color-scheme: dark;
     }
-    html,body{height:100%;}
+    html, body { height: 100%; }
+
+    /* 背景使用图片 + 渐变��加，替换下面的 URL 即可更换背景图 */
     body{
-      margin:0;
-      background: linear-gradient(180deg,#071020 0%, #071026 50%, #051027 100%);
-      color:#e6eef8;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:32px;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.6;
+      margin: 0;
+      /* 图片来源示例：Unsplash（可替换为你自己的图片 URL） */
+      background:
+        linear-gradient(180deg, rgba(7,16,38,0.6) 0%, rgba(7,16,38,0.6) 100%),
+        url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat fixed;
+      color: #e6eef8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
     .wrap{
       width:100%;
