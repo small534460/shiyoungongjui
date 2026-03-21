@@ -17,25 +17,30 @@
       font-family: "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
       color-scheme: dark;
     }
-    html, body { height: 100%; }
-
-    /* 背景使用图片 + 渐变��加，替换下面的 URL 即可更换背景图 */
-    body{
+    html, body { 
+      height: 100%; 
       margin: 0;
+      padding: 0;
+    }
+
+    /* 背景使用图片 + 渐变叠加，替换下面的 URL 即可更换背景图 */
+    body{
       /* 图片来源示例：Unsplash（可替换为你自己的图片 URL） */
       background:
         linear-gradient(180deg, rgba(7,16,38,0.6) 0%, rgba(7,16,38,0.6) 100%),
         url('https://i.mituw.com/imgs/2026/02/16/ca72241243868693.jpg') center/cover no-repeat fixed;
       color: #e6eef8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px;
+      min-height: 100vh;
+      padding: 20px 16px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      overflow-y: auto; /* 修复移动端滚动问题 */
     }
+
+    /* ============ 修改点1：修复移动端布局 ============ */
+    /* 移除原来的flex居中布局，改为正常文档流 */
     .wrap{
       width:100%;
       max-width:880px;
@@ -45,27 +50,54 @@
       box-shadow: 0 8px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
       border: 1px solid rgba(255,255,255,0.03);
       backdrop-filter: blur(6px);
+      margin: 0 auto; /* 居中但不使用flex */
+      box-sizing: border-box;
     }
+
     header{
       display:flex;
       align-items:center;
       gap:16px;
       margin-bottom:12px;
     }
-    .logo{
+
+    /* ============ 修改点2：将.logo类改为.avatar类 ============ */
+    .avatar{
       width:64px;
       height:64px;
       border-radius:12px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
       display:flex;
       align-items:center;
       justify-content:center;
-      font-weight:700;
-      font-size:20px;
-      color:white;
       box-shadow: 0 6px 18px rgba(96,165,250,0.12);
       flex:0 0 64px;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid rgba(96,165,250,0.3);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
     }
+
+    /* 头像图片样式 */
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    /* 头像加载失败时显示的文字 */
+    .avatar-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 20px;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
     h1{
       margin:0;
       font-size:20px;
@@ -87,6 +119,58 @@
       font-size:15px;
       margin-bottom:16px;
     }
+    
+    /* ============ 修改点3：分类按钮样式 ============ */
+    .category-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .category-btn {
+      flex: 1;
+      min-width: 200px;
+      padding: 14px 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(96,165,250,0.2);
+      background: linear-gradient(135deg, rgba(96,165,250,0.1), rgba(59,130,246,0.05));
+      color: #e6eef8;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      backdrop-filter: blur(5px);
+    }
+    
+    .category-btn:hover {
+      background: linear-gradient(135deg, rgba(96,165,250,0.2), rgba(59,130,246,0.1));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(96,165,250,0.2);
+    }
+    
+    .category-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      box-shadow: 0 6px 20px rgba(96,165,250,0.3);
+    }
+    
+    /* ============ 修改点4：工具分类容器样式 ============ */
+    .category-container {
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    
+    .category-container.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* ============ 修改点5：工具卡片样式 ============ */
     .links{
       list-style:none;
       padding:0;
@@ -95,10 +179,12 @@
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap:12px;
     }
+    
     .links a{
       text-decoration:none;
       color:inherit;
     }
+    
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));
       border-radius:10px;
@@ -109,19 +195,23 @@
       flex-direction:column;
       gap:8px;
     }
+    
     .card:hover{
       transform: translateY(-6px);
       box-shadow: 0 14px 40px rgba(2,6,23,0.6);
     }
+    
     .card .title{
       font-weight:600;
       color:#f3f9ff;
       font-size:15px;
     }
+    
     .card .desc{
       font-size:13px;
       color:var(--muted);
     }
+    
     footer{
       margin-top:18px;
       display:flex;
@@ -132,105 +222,378 @@
       font-size:13px;
       flex-wrap:wrap;
     }
+    
     .small{
       color:var(--muted);
       font-size:13px;
     }
-    @media (max-width:520px){
-      .logo{width:52px;height:52px;font-size:18px;}
-      .wrap{padding:18px;}
+    
+    /* ============ 修改点6：响应式设计 ============ */
+    @media (max-width:768px) {
+      body {
+        padding: 16px 12px;
+        display: block; /* 使用正常文档流 */
+        min-height: 100vh;
+      }
+      
+      .wrap {
+        padding: 20px 16px;
+        margin: 0 auto;
+      }
+      
+      .category-buttons {
+        flex-direction: column;
+      }
+      
+      .category-btn {
+        min-width: 100%;
+      }
+      
+      .links {
+        grid-template-columns: 1fr;
+      }
+      
+      /* 移动端头像尺寸调整 */
+      .avatar {
+        width: 56px;
+        height: 56px;
+        flex: 0 0 56px;
+      }
+      
+      .avatar-fallback {
+        font-size: 18px;
+      }
+      
+      h1 {
+        font-size: 18px;
+      }
+      
+      footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+      }
+    }
+    
+    @media (max-width:480px) {
+      .wrap {
+        padding: 16px 12px;
+      }
+      
+      header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+      }
+      
+      .avatar {
+        width: 60px;
+        height: 60px;
+        flex: 0 0 60px;
+      }
+      
+      .avatar-fallback {
+        font-size: 20px;
+      }
+      
+      h1 {
+        font-size: 20px;
+      }
+    }
+    
+    /* ============ 修改点7：添加滚动修复 ============ */
+    html {
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    
+    .section-title {
+      margin: 0 0 10px 0;
+      font-size: 14px;
+      color: var(--muted);
+      text-align: center;
+      position: relative;
+      padding-bottom: 8px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    
+    /* 添加页面包装器确保正常滚动 */
+    .page-wrapper {
+      width: 100%;
+      max-width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 20px 16px;
+      box-sizing: border-box;
+    }
+    
+    .main-content {
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 20px 0;
     }
   </style>
 </head>
 <body>
-  <main class="wrap" role="main" aria-labelledby="page-title">
-    <header>
-      <div class="logo" aria-hidden="true">S3</div>
-      <div>
-        <h1 id="page-title">Small 3 的个人领域</h1>
-        <div class="subtitle">实用工具</div>
-      </div>
-    </header>
+  <div class="page-wrapper">
+    <div class="main-content">
+      <main class="wrap" role="main" aria-labelledby="page-title">
+        <header>
+          <!-- ============ 修改点8：替换头像容器 ============ -->
+          <!-- 原来的<div class="logo" aria-hidden="true">S3</div>改成了下面的结构 -->
+          <div class="avatar" id="avatarContainer">
+            <!-- ============ 修改点9：在这里替换您的图片链接 ============ -->
+            <!-- 将 src 属性中的 URL 替换为您自己的图床图片链接 -->
+            <!-- 示例：src="https://example.com/your-avatar.jpg" -->
+            <img src="https://i.mituw.com/imgs/2026/03/15/de4945abb96be550.jpg" alt="Small 3 的头像" class="avatar-img" id="avatarImg" onerror="showAvatarFallback()">
+            <!-- 如果图片加载失败，会显示这个备用文字 -->
+            <div class="avatar-fallback" id="avatarFallback" style="display: none;">S3</div>
+          </div>
+          <div>
+            <h1 id="page-title">Small 3 的个人领域</h1>
+            <div class="subtitle">实用工具</div>
+          </div>
+        </header>
 
-    <section class="content" aria-label="主要内容">
-      <p class="intro">我是 Small 3，这里存放实用工具与收藏链接。</p>
+        <section class="content" aria-label="主要内容">
+          <p class="intro">我是 Small 3，这里存放实用工具与收藏链接。</p>
 
-      <h2 style="margin:0 0 10px 0;font-size:14px;color:var(--muted)">—— SMALL 3 领域 ——</h2>
+          <h2 class="section-title">—— SMALL 3 领域 ——</h2>
+          
+          <!-- ============ 修改点10：分类按钮 ============ -->
+          <div class="category-buttons">
+            <button class="category-btn active" data-category="crack-tools">实用破解工具</button>
+            <button class="category-btn" data-category="system-tools">系统优化及修改工具</button>
+          </div>
+          
+          <!-- ============ 修改点11：实用破解工具分类 ============ -->
+          <!-- 
+            如何添加新的工具链接到这个分类：
+            1. 在下面的 <ul class="links"> 中添加新的 <li> 元素
+            2. 按照示例格式添加链接
+            3. 保存文件即可
+          -->
+          <div id="crack-tools" class="category-container active">
+            <ul class="links" aria-label="实用破解工具">
+              <li>
+                <a class="card" href="https://www.bilibili.com/video/BV11gPoeTEBY/?spm_id_from=333.337.search-card.all.click" target="_blank" rel="noopener noreferrer">
+                  <div class="title">IDM 破解版</div>
+                  <div class="desc">B站视频资源（外部链接）</div>
+                </a>
+              </li>
+              <li>
+                <a class="card" href="https://www.ddooo.com/softdown/10877.htm" target="_blank" rel="noopener noreferrer">
+                  <div class="title">冰点还原密码查看器</div>
+                  <div class="desc">冰点还原密码查看器页面</div>
+                </a>
+              </li>
+              <li>
+                   <a class="card" href="https://www.ddooo.com/softdown/10877.htm" target="_blank" rel="noopener noreferrer">
+                  <div class="title">windows密码查看器</div>
+                  <div class="desc">谨慎使用！</div>
+                </a>
+              </li>
+              <li>
+                   <a class="card" href="https://jiyutool.liyixin.vip/" target="_blank" rel="noopener noreferrer">
+                  <div class="title">极域工具箱</div>
+                  <div class="desc">太好了，我以前都没有这个用！</div>
+                </a>
+              </li>
+              <li>
+                     <a class="card" href="https://chrome.zzzmh.cn/info/jfedfbgedapdagkghmgibemcoggfppbb" target="_blank" rel="noopener noreferrer">
+                  <div class="title">猫抓（Chrome版）</div>
+                  <div class="desc">最好用的视频解析工具！！</div>
+                </a>
+              </li>
+              <li>
+                     <a class="card" href="https://soft.china.com/soft/2903606.html" target="_blank" rel="noopener noreferrer">
+                  <div class="title">zyperWin++</div>
+                  <div class="desc">处理Windows的各种问题</div>
+                </a>
+              </li>
+              <!-- 
+                示例：如何添加新的工具链接
+                <li>
+                  <a class="card" href="https://example.com" target="_blank" rel="noopener noreferrer">
+                    <div class="title">新工具名称</div>
+                    <div class="desc">工具描述</div>
+                  </a>
+                </li>
+              -->
+            </ul>
+          </div>
+          
+          <!-- ============ 修改点12：系统优化及修改工具分类 ============ -->
+          <!-- 
+            如何添加新的工具链接到这个分类：
+            1. 在下面的 <ul class="links"> 中添加新的 <li> 元素
+            2. 按照示例格式添加链接
+            3. 保存文件即可
+          -->
+          <div id="system-tools" class="category-container">
+            <ul class="links" aria-label="系统优化及修改工具">
+              <li>
+                <a class="card" href="https://boosterx.org/zh/" target="_blank" rel="noopener noreferrer">
+                  <div class="title">BoosterX — 性能优化工具</div>
+                  <div class="desc">性能分析与优化工具站点</div>
+                </a>
+              </li>
+              <li>
+                <a class="card" href="https://github.com/henrypp/memreduct/releases" target="_blank" rel="noopener noreferrer">
+                  <div class="title">Mem Reduct — 内存清理工具</div>
+                  <div class="desc">GitHub Releases 页面</div>
+                </a>
+              </li>
+              <li>
+                 <a class="card" href="https://bitsum.com/download-process-lasso/" target="_blank" rel="noopener noreferrer">
+                  <div class="title">Process Lasso — 进程优化工具</div>
+                  <div class="desc">Process Lasso 页面</div>
+                </a>
+              </li>
+              <li>
+                    <a class="card" href="https://www.puresys.net/4814.html" target="_blank" rel="noopener noreferrer">
+                  <div class="title">Windows超级管理器 </div>
+                  <div class="desc">处理Windows的各种问题</div>
+                </a>
+              </li>
+              <li>
+                <a class="card" href="https://geekuninstaller.com/" target="_blank" rel="noopener noreferrer">
+                  <div class="title">Geek Uninstaller — 卸载工具</div>
+                  <div class="desc">官方站点（外部链接）</div>
+                </a>
+              </li>
+              <!-- 
+                示例：如何添加新的工具链接
+                <li>
+                  <a class="card" href="https://example.com" target="_blank" rel="noopener noreferrer">
+                    <div class="title">新工具名称</div>
+                    <div class="desc">工具描述</div>
+                  </a>
+                </li>
+              -->
+            </ul>
+          </div>
+        </section>
 
-      <ul class="links" aria-label="推荐链接">
-        <li>
-          <a class="card" href="https://www.bilibili.com/video/BV11gPoeTEBY/?spm_id_from=333.337.search-card.all.click" target="_blank" rel="noopener noreferrer">
-            <div class="title">IDM 破解版</div>
-            <div class="desc">B站视频资源（外部链接）</div>
-          </a>
-        </li>
-        <li>
-          <a class="card" href="https://boosterx.org/zh/" target="_blank" rel="noopener noreferrer">
-            <div class="title">BoosterX — 性能优化工具</div>
-            <div class="desc">性能分析与优化工具站点</div>
-          </a>
-        </li>
-        <li>
-          <a class="card" href="https://github.com/henrypp/memreduct/releases" target="_blank" rel="noopener noreferrer">
-            <div class="title">Mem Reduct — 内存清理工具</div>
-            <div class="desc">GitHub Releases 页面</div>
-          </a>
-        </li>
-        <li>
-           <a class="card" href="https://bitsum.com/download-process-lasso/" target="_blank" rel="noopener noreferrer">
-            <div class="title">Process Lasso — 进程优化工具</div>
-            <div class="desc">Process Lasso 页面</div>
-          </a>
-        </li>
-        <li>
-           <a class="card" href="https://www.ddooo.com/softdown/10877.htm" target="_blank" rel="noopener noreferrer">
-            <div class="title">冰点还原密码查看器</div>
-            <div class="desc">冰点还原密码查看器页面</div>
-          </a>
-        </li>
-        <li>
-             <a class="card" href="https://www.ddooo.com/softdown/10877.htm" target="_blank" rel="noopener noreferrer">
-            <div class="title">windows密码查看器</div>
-            <div class="desc">谨慎使用！</div>
-          </a>
-        </li>
-        <li>
-             <a class="card" href="https://jiyutool.liyixin.vip/" target="_blank" rel="noopener noreferrer">
-            <div class="title">极域工具箱</div>
-            <div class="desc">太好了，我以前都没有这个用！</div>
-          </a>
-        </li>
-        <li>
-              <a class="card" href="https://www.puresys.net/4814.html" target="_blank" rel="noopener noreferrer">
-            <div class="title">Windows超级管理器 </div>
-            <div class="desc">处理Windows的各种问题</div>
-          </a>
-        </li>
-        <li>
-               <a class="card" href="https://soft.china.com/soft/2903606.html" target="_blank" rel="noopener noreferrer">
-            <div class="title">zyperWin++</div>
-            <div class="desc">处理Windows的各种问题</div>
-          </a>
-        </li>
-        <li>
-               <a class="card" href="https://chrome.zzzmh.cn/info/jfedfbgedapdagkghmgibemcoggfppbb" target="_blank" rel="noopener noreferrer">
-            <div class="title">猫抓（Chrome版）</div>
-            <div class="desc">最好用的视频解析工具！！</div>
-          </a>
-        </li>
-        <li>
-          <a class="card" href="https://geekuninstaller.com/" target="_blank" rel="noopener noreferrer">
-            <div class="title">Geek Uninstaller — 卸载工具</div>
-            <div class="desc">官方站点（外部链接）</div>
-          </a>
-        </li>
-      </ul>
-    </section>
-
-    <footer>
-      <div class="small">本站由 <a href="https://github.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none">GitHub</a> 支持</div>
-      <div class="small">© Small 3</div>
-    </footer>
-  </main>
+        <footer>
+          <div class="small">本站由 <a href="https://github.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none">GitHub</a> 支持</div>
+          <div class="small">© Small 3</div>
+        </footer>
+      </main>
+    </div>
+  </div>
+  
+  <script>
+    // ============ 修改点13：头像图片加载失败时的处理函数 ============
+    function showAvatarFallback() {
+      var avatarImg = document.getElementById('avatarImg');
+      var avatarFallback = document.getElementById('avatarFallback');
+      
+      if (avatarImg) {
+        avatarImg.style.display = 'none';
+      }
+      
+      if (avatarFallback) {
+        avatarFallback.style.display = 'flex';
+      }
+    }
+    
+    // ============ 修改点14：分类按钮切换功能 ============
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取所有分类按钮
+      var categoryButtons = document.querySelectorAll('.category-btn');
+      
+      // 为每个按钮添加点击事件
+      categoryButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          // 获取点击按钮对应的分类ID
+          var categoryId = this.getAttribute('data-category');
+          
+          // 移除所有按钮的激活状态
+          categoryButtons.forEach(function(btn) {
+            btn.classList.remove('active');
+          });
+          
+          // 为当前点击的按钮添加激活状态
+          this.classList.add('active');
+          
+          // 隐藏所有分类容器
+          var allContainers = document.querySelectorAll('.category-container');
+          allContainers.forEach(function(container) {
+            container.classList.remove('active');
+            
+            // 添加过渡效果
+            setTimeout(function() {
+              container.style.display = 'none';
+            }, 400);
+          });
+          
+          // 显示当前分类容器
+          var currentContainer = document.getElementById(categoryId);
+          if (currentContainer) {
+            currentContainer.style.display = 'block';
+            
+            // 使用setTimeout触发过渡动画
+            setTimeout(function() {
+              currentContainer.classList.add('active');
+            }, 10);
+          }
+        });
+      });
+      
+      // ============ 修改点15：移动端触摸滑动支持 ============
+      // 修复移动端触摸滑动问题
+      let touchStartY = 0;
+      
+      document.addEventListener('touchstart', function(e) {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      
+      document.addEventListener('touchmove', function(e) {
+        // 允许默认滚动行为
+      }, { passive: true });
+    });
+    
+    // ============ 修改点16：页面加载完成后的一些初始化 ============
+    window.addEventListener('load', function() {
+      // 确保页面可以正常滚动
+      document.body.style.overflowY = 'auto';
+      
+      // 检查头像图片是否加载成功
+      var avatarImg = document.getElementById('avatarImg');
+      if (avatarImg) {
+        avatarImg.onload = function() {
+          // 图片加载成功，隐藏备用文字
+          var avatarFallback = document.getElementById('avatarFallback');
+          if (avatarFallback) {
+            avatarFallback.style.display = 'none';
+          }
+        };
+        
+        // 如果图片已经加载完成（缓存情况）
+        if (avatarImg.complete) {
+          var avatarFallback = document.getElementById('avatarFallback');
+          if (avatarFallback) {
+            avatarFallback.style.display = 'none';
+          }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
