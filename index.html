@@ -40,7 +40,6 @@
     }
 
     /* ============ 修改点1：修复移动端布局 ============ */
-    /* 移除原来的flex居中布局，改为正常文档流 */
     .wrap{
       width:100%;
       max-width:880px;
@@ -83,6 +82,7 @@
       height: 100%;
       object-fit: cover;
       border-radius: 10px;
+      display: block; /* 确保图片正常显示 */
     }
 
     /* 头像加载失败时显示的文字 */
@@ -156,16 +156,16 @@
       box-shadow: 0 6px 20px rgba(96,165,250,0.3);
     }
     
-    /* ============ 修改点4：工具分类容器样式 ============ */
+    /* ============ 修改点4：修复分类容器动画问题 ============ */
     .category-container {
-      display: none;
+      display: none; /* 默认隐藏 */
       opacity: 0;
       transform: translateY(-10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
     
     .category-container.active {
-      display: block;
+      display: block; /* 激活时显示 */
       opacity: 1;
       transform: translateY(0);
     }
@@ -327,193 +327,155 @@
       height: 2px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
     }
-    
-    /* 添加页面包装器确保正常滚动 */
-    .page-wrapper {
-      width: 100%;
-      max-width: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      padding: 20px 16px;
-      box-sizing: border-box;
-    }
-    
-    .main-content {
-      width: 100%;
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 20px 0;
-    }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
-    <div class="main-content">
-      <main class="wrap" role="main" aria-labelledby="page-title">
-        <header>
-          <!-- ============ 修改点8：替换头像容器 ============ -->
-          <!-- 原来的<div class="logo" aria-hidden="true">S3</div>改成了下面的结构 -->
-          <div class="avatar" id="avatarContainer">
-            <!-- ============ 修改点9：在这里替换您的图片链接 ============ -->
-            <!-- 将 src 属性中的 URL 替换为您自己的图床图片链接 -->
-            <!-- 示例：src="https://example.com/your-avatar.jpg" -->
-            <img src="https://i.mituw.com/imgs/2026/03/15/de4945abb96be550.jpg" alt="Small 3 的头像" class="avatar-img" id="avatarImg" onerror="showAvatarFallback()">
-            <!-- 如果图片加载失败，会显示这个备用文字 -->
-            <div class="avatar-fallback" id="avatarFallback" style="display: none;">S3</div>
-          </div>
-          <div>
-            <h1 id="page-title">Small 3 的个人领域</h1>
-            <div class="subtitle">实用工具</div>
-          </div>
-        </header>
+  <main class="wrap" role="main" aria-labelledby="page-title">
+    <header>
+      <!-- ============ 修改点8：替换头像容器 ============ -->
+      <!-- 原来的<div class="logo" aria-hidden="true">S3</div>改成了下面的结构 -->
+      <div class="avatar" id="avatarContainer">
+        <!-- ============ 修改点9：在这里替换您的图片链接 ============ -->
+        <!-- 将 src 属性中的 URL 替换为您自己的图床图片链接 -->
+        <!-- 示例：src="https://example.com/your-avatar.jpg" -->
+        <img src="https://i.mituw.com/imgs/2026/03/15/de4945abb96be550.jpg" alt="Small 3 的头像" class="avatar-img" id="avatarImg">
+        <!-- 如果图片加载失败，会显示这个备用文字 -->
+        <div class="avatar-fallback" id="avatarFallback">S3</div>
+      </div>
+      <div>
+        <h1 id="page-title">Small 3 的个人领域</h1>
+        <div class="subtitle">实用工具</div>
+      </div>
+    </header>
 
-        <section class="content" aria-label="主要内容">
-          <p class="intro">我是 Small 3，这里存放实用工具与收藏链接。</p>
+    <section class="content" aria-label="主要内容">
+      <p class="intro">我是 Small 3，这里存放实用工具与收藏链接。</p>
 
-          <h2 class="section-title">—— SMALL 3 领域 ——</h2>
-          
-          <!-- ============ 修改点10：分类按钮 ============ -->
-          <div class="category-buttons">
-            <button class="category-btn active" data-category="crack-tools">实用破解工具</button>
-            <button class="category-btn" data-category="system-tools">系统优化及修改工具</button>
-          </div>
-          
-          <!-- ============ 修改点11：实用破解工具分类 ============ -->
+      <h2 class="section-title">—— SMALL 3 领域 ——</h2>
+      
+      <!-- ============ 修改点10：分类按钮 ============ -->
+      <div class="category-buttons">
+        <button class="category-btn active" data-category="crack-tools">实用破解工具</button>
+        <button class="category-btn" data-category="system-tools">系统优化及修改工具</button>
+      </div>
+      
+      <!-- ============ 修改点11：实用破解工具分类 ============ -->
+      <!-- 
+        如何添加新的工具链接到这个分类：
+        1. 在下面的 <ul class="links"> 中添加新的 <li> 元素
+        2. 按照示例格式添加链接
+        3. 保存文件即可
+      -->
+      <div id="crack-tools" class="category-container active">
+        <ul class="links" aria-label="实用破解工具">
+          <li>
+            <a class="card" href="https://www.bilibili.com/video/BV11gPoeTEBY/?spm_id_from=333.337.search-card.all.click" target="_blank" rel="noopener noreferrer">
+              <div class="title">IDM 破解版</div>
+              <div class="desc">B站视频资源（外部链接）</div>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="https://www.ddooo.com/softdown/10877.htm" target="_blank" rel="noopener noreferrer">
+              <div class="title">冰点还原密码查看器</div>
+              <div class="desc">冰点还原密码查看器页面</div>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="https://www.ddooo.com/softdown/10877.htm" target="_blank" rel="noopener noreferrer">
+              <div class="title">windows密码查看器</div>
+              <div class="desc">谨慎使用！</div>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="https://jiyutool.liyixin.vip/" target="_blank" rel="noopener noreferrer">
+              <div class="title">极域工具箱</div>
+              <div class="desc">太好了，我以前都没有这个用！</div>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="https://chrome.zzzmh.cn/info/jfedfbgedapdagkghmgibemcoggfppbb" target="_blank" rel="noopener noreferrer">
+              <div class="title">猫抓（Chrome版）</div>
+              <div class="desc">最好用的视频解析工具！！</div>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="https://soft.china.com/soft/2903606.html" target="_blank" rel="noopener noreferrer">
+              <div class="title">zyperWin++</div>
+              <div class="desc">处理Windows的各种问题</div>
+            </a>
+          </li>
           <!-- 
-            如何添加新的工具链接到这个分类：
-            1. 在下面的 <ul class="links"> 中添加新的 <li> 元素
-            2. 按照示例格式添加链接
-            3. 保存文件即可
+            示例：如何添加新的工具链接
+            <li>
+              <a class="card" href="https://example.com" target="_blank" rel="noopener noreferrer">
+                <div class="title">新工具名称</div>
+                <div class="desc">工具描述</div>
+              </a>
+            </li>
           -->
-          <div id="crack-tools" class="category-container active">
-            <ul class="links" aria-label="实用破解工具">
-              <li>
-                <a class="card" href="https://www.bilibili.com/video/BV11gPoeTEBY/?spm_id_from=333.337.search-card.all.click" target="_blank" rel="noopener noreferrer">
-                  <div class="title">IDM 破解版</div>
-                  <div class="desc">B站视频资源（外部链接）</div>
-                </a>
-              </li>
-              <li>
-                <a class="card" href="https://www.ddooo.com/softdown/10877.htm" target="_blank" rel="noopener noreferrer">
-                  <div class="title">冰点还原密码查看器</div>
-                  <div class="desc">冰点还原密码查看器页面</div>
-                </a>
-              </li>
-              <li>
-                   <a class="card" href="https://www.ddooo.com/softdown/10877.htm" target="_blank" rel="noopener noreferrer">
-                  <div class="title">windows密码查看器</div>
-                  <div class="desc">谨慎使用！</div>
-                </a>
-              </li>
-              <li>
-                   <a class="card" href="https://jiyutool.liyixin.vip/" target="_blank" rel="noopener noreferrer">
-                  <div class="title">极域工具箱</div>
-                  <div class="desc">太好了，我以前都没有这个用！</div>
-                </a>
-              </li>
-              <li>
-                     <a class="card" href="https://chrome.zzzmh.cn/info/jfedfbgedapdagkghmgibemcoggfppbb" target="_blank" rel="noopener noreferrer">
-                  <div class="title">猫抓（Chrome版）</div>
-                  <div class="desc">最好用的视频解析工具！！</div>
-                </a>
-              </li>
-              <li>
-                     <a class="card" href="https://soft.china.com/soft/2903606.html" target="_blank" rel="noopener noreferrer">
-                  <div class="title">zyperWin++</div>
-                  <div class="desc">处理Windows的各种问题</div>
-                </a>
-              </li>
-              <!-- 
-                示例：如何添加新的工具链接
-                <li>
-                  <a class="card" href="https://example.com" target="_blank" rel="noopener noreferrer">
-                    <div class="title">新工具名称</div>
-                    <div class="desc">工具描述</div>
-                  </a>
-                </li>
-              -->
-            </ul>
-          </div>
-          
-          <!-- ============ 修改点12：系统优化及修改工具分类 ============ -->
+        </ul>
+      </div>
+      
+      <!-- ============ 修改点12：系统优化及修改工具分类 ============ -->
+      <!-- 
+        如何添加新的工具链接到这个分类：
+        1. 在下面的 <ul class="links"> 中添加新的 <li> 元素
+        2. 按照示例格式添加链接
+        3. 保存文件即可
+      -->
+      <div id="system-tools" class="category-container">
+        <ul class="links" aria-label="系统优化及修改工具">
+          <li>
+            <a class="card" href="https://boosterx.org/zh/" target="_blank" rel="noopener noreferrer">
+              <div class="title">BoosterX — 性能优化工具</div>
+              <div class="desc">性能分析与优化工具站点</div>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="https://github.com/henrypp/memreduct/releases" target="_blank" rel="noopener noreferrer">
+              <div class="title">Mem Reduct — 内存清理工具</div>
+              <div class="desc">GitHub Releases 页面</div>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="https://bitsum.com/download-process-lasso/" target="_blank" rel="noopener noreferrer">
+              <div class="title">Process Lasso — 进程优化工具</div>
+              <div class="desc">Process Lasso 页面</div>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="https://www.puresys.net/4814.html" target="_blank" rel="noopener noreferrer">
+              <div class="title">Windows超级管理器</div>
+              <div class="desc">处理Windows的各种问题</div>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="https://geekuninstaller.com/" target="_blank" rel="noopener noreferrer">
+              <div class="title">Geek Uninstaller — 卸载工具</div>
+              <div class="desc">官方站点（外部链接）</div>
+            </a>
+          </li>
           <!-- 
-            如何添加新的工具链接到这个分类：
-            1. 在下面的 <ul class="links"> 中添加新的 <li> 元素
-            2. 按照示例格式添加链接
-            3. 保存文件即可
+            示例：如何添加新的工具链接
+            <li>
+              <a class="card" href="https://example.com" target="_blank" rel="noopener noreferrer">
+                <div class="title">新工具名称</div>
+                <div class="desc">工具描述</div>
+              </a>
+            </li>
           -->
-          <div id="system-tools" class="category-container">
-            <ul class="links" aria-label="系统优化及修改工具">
-              <li>
-                <a class="card" href="https://boosterx.org/zh/" target="_blank" rel="noopener noreferrer">
-                  <div class="title">BoosterX — 性能优化工具</div>
-                  <div class="desc">性能分析与优化工具站点</div>
-                </a>
-              </li>
-              <li>
-                <a class="card" href="https://github.com/henrypp/memreduct/releases" target="_blank" rel="noopener noreferrer">
-                  <div class="title">Mem Reduct — 内存清理工具</div>
-                  <div class="desc">GitHub Releases 页面</div>
-                </a>
-              </li>
-              <li>
-                 <a class="card" href="https://bitsum.com/download-process-lasso/" target="_blank" rel="noopener noreferrer">
-                  <div class="title">Process Lasso — 进程优化工具</div>
-                  <div class="desc">Process Lasso 页面</div>
-                </a>
-              </li>
-              <li>
-                    <a class="card" href="https://www.puresys.net/4814.html" target="_blank" rel="noopener noreferrer">
-                  <div class="title">Windows超级管理器 </div>
-                  <div class="desc">处理Windows的各种问题</div>
-                </a>
-              </li>
-              <li>
-                <a class="card" href="https://geekuninstaller.com/" target="_blank" rel="noopener noreferrer">
-                  <div class="title">Geek Uninstaller — 卸载工具</div>
-                  <div class="desc">官方站点（外部链接）</div>
-                </a>
-              </li>
-              <!-- 
-                示例：如何添加新的工具链接
-                <li>
-                  <a class="card" href="https://example.com" target="_blank" rel="noopener noreferrer">
-                    <div class="title">新工具名称</div>
-                    <div class="desc">工具描述</div>
-                  </a>
-                </li>
-              -->
-            </ul>
-          </div>
-        </section>
+        </ul>
+      </div>
+    </section>
 
-        <footer>
-          <div class="small">本站由 <a href="https://github.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none">GitHub</a> 支持</div>
-          <div class="small">© Small 3</div>
-        </footer>
-      </main>
-    </div>
-  </div>
+    <footer>
+      <div class="small">本站由 <a href="https://github.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none">GitHub</a> 支持</div>
+      <div class="small">© Small 3</div>
+    </footer>
+  </main>
   
   <script>
-    // ============ 修改点13：头像图片加载失败时的处理函数 ============
-    function showAvatarFallback() {
-      var avatarImg = document.getElementById('avatarImg');
-      var avatarFallback = document.getElementById('avatarFallback');
-      
-      if (avatarImg) {
-        avatarImg.style.display = 'none';
-      }
-      
-      if (avatarFallback) {
-        avatarFallback.style.display = 'flex';
-      }
-    }
-    
-    // ============ 修改点14：分类按钮切换功能 ============
+    // ============ 修改点13：修复分类切换动画问题 ============
     document.addEventListener('DOMContentLoaded', function() {
       // 获取所有分类按钮
       var categoryButtons = document.querySelectorAll('.category-btn');
@@ -535,12 +497,13 @@
           // 隐藏所有分类容器
           var allContainers = document.querySelectorAll('.category-container');
           allContainers.forEach(function(container) {
-            container.classList.remove('active');
-            
-            // 添加过渡效果
-            setTimeout(function() {
-              container.style.display = 'none';
-            }, 400);
+            if (container.classList.contains('active')) {
+              container.classList.remove('active');
+              // 等待动画结束后隐藏
+              setTimeout(function() {
+                container.style.display = 'none';
+              }, 300); // 与CSS动画时间匹配
+            }
           });
           
           // 显示当前分类容器
@@ -555,43 +518,26 @@
           }
         });
       });
-      
-      // ============ 修改点15：移动端触摸滑动支持 ============
-      // 修复移动端触摸滑动问题
-      let touchStartY = 0;
-      
-      document.addEventListener('touchstart', function(e) {
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-      
-      document.addEventListener('touchmove', function(e) {
-        // 允许默认滚动行为
-      }, { passive: true });
     });
     
-    // ============ 修改点16：页面加载完成后的一些初始化 ============
+    // ============ 修改点14：头像加载失败处理 ============
+    // 检查头像图片是否加载成功
     window.addEventListener('load', function() {
-      // 确保页面可以正常滚动
-      document.body.style.overflowY = 'auto';
-      
-      // 检查头像图片是否加载成功
       var avatarImg = document.getElementById('avatarImg');
+      var avatarFallback = document.getElementById('avatarFallback');
+      
       if (avatarImg) {
-        avatarImg.onload = function() {
-          // 图片加载成功，隐藏备用文字
-          var avatarFallback = document.getElementById('avatarFallback');
-          if (avatarFallback) {
-            avatarFallback.style.display = 'none';
-          }
-        };
-        
-        // 如果图片已经加载完成（缓存情况）
-        if (avatarImg.complete) {
-          var avatarFallback = document.getElementById('avatarFallback');
-          if (avatarFallback) {
-            avatarFallback.style.display = 'none';
-          }
+        // 如果图片已经加载失败，显示备用文字
+        if (avatarImg.naturalWidth === 0) {
+          avatarImg.style.display = 'none';
+          avatarFallback.style.display = 'flex';
         }
+        
+        // 图片加载失败事件
+        avatarImg.onerror = function() {
+          this.style.display = 'none';
+          avatarFallback.style.display = 'flex';
+        };
       }
     });
   </script>
