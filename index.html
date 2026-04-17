@@ -371,12 +371,13 @@
   font-size: 1em;
 }
 .category-container-folder {
-  position: relative;
   background: none;
-  display: none;
+  position: relative;
+  /* 用block保证空间分配，可动画！！而不是display:none */
+  display: block;
   margin-bottom: 18px;
-  /* 保证父div尺寸变化有动画，overflow限制弹出 */
-  overflow: visible;
+  pointer-events: none; /* 防止切换时误点 */
+  /* 所有动画写在folder-content，不在这里 */
 }
 
 .category-container-folder.active {
@@ -387,28 +388,31 @@
   background: linear-gradient(120deg, #1e2432 70%, var(--accent-2) 110%);
   border-radius: 0 0 18px 18px;
   box-shadow: 0 8px 28px #20284d80;
-  transform: scaleY(0.7);
-  opacity: 0.6;
+  /* 初始关闭状态：高度0、缩放小、透明 */
   max-height: 0;
-  visibility: hidden;
+  opacity: 0;
+  transform: scaleY(0.7);
+  overflow: hidden;
   margin-top: -7px;
   padding: 0 12px;
+  visibility: hidden;
   transition:
     max-height .45s cubic-bezier(.57,1.26,.41,.96),
     opacity .33s,
     transform .44s,
-    visibility 0s .15s;
+    visibility 0s .18s;
+  pointer-events: none;
 }
 
 .category-container-folder.active .folder-content {
-  max-height: 900px;
-  padding: 20px 16px 18px 16px;
-  transition-timing-function: cubic-bezier(.66,-0.05,.36,1.11);
+  max-height: 700px; /* 大致足够；如内容超多可放大数值 */
+  padding: 18px 16px 18px 16px;
   opacity: 1;
   transform: scaleY(1);
-  visibility: visible;
   margin-top: 0;
+  visibility: visible;
   transition-delay: 0s, 0s, 0s, 0s;
+  pointer-events: auto;
 }
   </style>
 </head>
@@ -637,39 +641,21 @@
     });
     
     // ============ 修复点16：分类按钮功能 ============
-    document.querySelectorAll('.category-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        // 移除所有按钮的激活状态
-        document.querySelectorAll('.category-btn').forEach(btn => {
-          btn.classList.remove('active');
-        });
-        
-        // 添加当前按钮的激活状态
-        this.classList.add('active');
-        
-        // 隐藏所有分类容器
-        document.querySelectorAll('.category-container').forEach(container => {
-          container.classList.remove('active');
-        });
-        
-        // 显示对应的分类容器
-        const category = this.getAttribute('data-category');
-        document.getElementById(category).classList.add('active');
-      });
-    });
-    document.querySelectorAll('.category-btn-folder').forEach(button => {
+document.querySelectorAll('.category-btn-folder').forEach(button => {
   button.addEventListener('click', function() {
-    // 按钮高亮
-    document.querySelectorAll('.category-btn-folder').forEach(btn =>
-      btn.classList.remove('active')
-    );
+    // 移除所有按钮的active
+    document.querySelectorAll('.category-btn-folder').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    // 当前按钮添加active
     this.classList.add('active');
 
-    // 内容区动画（支持文件夹弹出）
+    // 移除所有内容区active
     document.querySelectorAll('.category-container-folder').forEach(container => {
       container.classList.remove('active');
     });
 
+    // 当前按钮对应的内容区加active
     const target = document.getElementById(this.getAttribute('data-category'));
     if (target) {
       target.classList.add('active');
