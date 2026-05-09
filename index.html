@@ -6,9 +6,9 @@
   <title>实用工具</title>
   <meta name="description" content="Small 3 的个人领域，收藏了有趣的网站与资源。" />
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--muted:#93a0b3;--accent:#60a5fa;--accent-2:#7c3aed;--accent-green:#10B981;--glass:rgba(255,255,255,0.03);--radius:12px;--blur-strength:6px;font-family:"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;color-scheme:dark}
+    :root{--bg:#0f1724;--muted:#93a0b3;--accent:#60a5fa;--accent-2:#7c3aed;--accent-green:#10B981;--radius:12px;--blur-strength:6px;font-family:"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;color-scheme:dark}
     html,body{height:100%;margin:0;padding:0}
-    body{background:linear-gradient(180deg,rgba(7,16,38,0.5) 0%,rgba(7,16,38,0.55) 100%),url('https://images.unsplash.com/photo-1504194782011-e78a3bf9d300?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat fixed;color:#e6eef8;min-height:100vh;padding:20px 16px;-webkit-font-smoothing:antialiased;line-height:1.6;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;overflow-y:auto}
+    body{background:linear-gradient(180deg,rgba(7,16,38,0.5) 0%,rgba(7,16,38,0.55) 100%),url('https://images.unsplash.com/photo-1504194782011-e78a3bf9d300?q=80&w=870&auto=format&fit=crop') center/cover no-repeat fixed;color:#e6eef8;min-height:100vh;padding:20px 16px;-webkit-font-smoothing:antialiased;line-height:1.6;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;overflow-y:auto}
     .wrap{width:100%;max-width:880px;background:rgba(0,0,0,0.25);backdrop-filter:blur(var(--blur-strength));-webkit-backdrop-filter:blur(var(--blur-strength));border-radius:16px;padding:28px;box-shadow:0 8px 30px rgba(2,6,23,0.4),inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);margin:0 auto;box-sizing:border-box}
     header{display:flex;align-items:center;gap:16px;margin-bottom:12px}
     .avatar{width:64px;height:64px;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(96,165,250,0.2);flex:0 0 64px;position:relative;overflow:hidden;border:2px solid rgba(96,165,250,0.4);background:linear-gradient(135deg,var(--accent),var(--accent-2))}
@@ -21,14 +21,13 @@
     
     .category-buttons{display:flex;gap:12px;margin-bottom:0;flex-wrap:wrap}
     .category-btn-folder{background:rgba(255,255,255,0.06);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);border-radius:10px 10px 0 0;font-size:15px;font-weight:600;padding:10px 22px 10px 18px;margin:0;cursor:pointer;outline:none;position:relative;z-index:11;min-width:110px;display:flex;align-items:center;gap:8px;transition:all 0.3s;text-shadow:0 1px 2px rgba(0,0,0,0.2)}
-    .category-btn-folder:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:#fff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-    .category-btn-folder.active{background:rgba(96,165,250,0.2);border-color:rgba(96,165,250,0.4);color:#fff;box-shadow:0 4px 16px rgba(96,165,250,0.2)}
+    .category-btn-folder:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:#fff;transform:translateY(-1px)}
+    .category-btn-folder.active{background:rgba(96,165,250,0.2);border-color:rgba(96,165,250,0.4);color:#fff}
     .category-btn-folder.active::after{content:'';position:absolute;bottom:-1px;left:10%;width:80%;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
     
-    .category-container-folder{background:none;position:relative;display:block;margin-bottom:18px;pointer-events:none}
-    .category-container-folder.active{pointer-events:auto}
-    .folder-content{background:rgba(0,0,0,0.2);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.08);border-top:none;border-radius:0 0 16px 16px;box-shadow:0 12px 40px rgba(0,0,0,0.4);max-height:0;opacity:0;transform:translateY(-8px) scaleY(0.95);overflow:hidden;padding:0 18px;visibility:hidden;transition:max-height 0.5s,opacity 0.35s,transform 0.4s,padding 0.3s,visibility 0s 0.3s;pointer-events:none}
-    .category-container-folder.active .folder-content{max-height:2000px;padding:20px 18px;opacity:1;transform:translateY(0) scaleY(1);visibility:visible;transition-delay:0s,0.05s,0s,0s,0s;pointer-events:auto}
+    .category-container-folder{background:none;position:relative;display:none;margin-bottom:18px}
+    .category-container-folder.active{display:block}
+    .folder-content{background:rgba(0,0,0,0.2);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.08);border-top:none;border-radius:0 0 16px 16px;box-shadow:0 12px 40px rgba(0,0,0,0.4);padding:20px 18px}
     
     .links{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
     .links a{text-decoration:none;color:inherit}
@@ -38,20 +37,17 @@
     .card .title{font-weight:600;color:#f3f9ff;font-size:15px;text-shadow:0 1px 2px rgba(0,0,0,0.2)}
     .card .desc{font-size:13px;color:var(--muted)}
     
-    /* 工具卡片样式 */
     .tool-card{cursor:pointer}
     .tool-modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:500;display:none;align-items:center;justify-content:center}
-    .tool-modal{background:rgba(0,0,0,0.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:24px;border:1px solid var(--border);max-width:600px;width:90%;max-height:80vh;overflow-y:auto}
+    .tool-modal{background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,0.12);max-width:600px;width:90%;max-height:80vh;overflow-y:auto}
     .tool-modal h4{font-size:18px;color:var(--accent);margin-bottom:16px;text-align:center}
-    .tool-modal textarea{width:100%;height:100px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.3);color:#fff;font-size:13px;resize:vertical;outline:none;font-family:monospace;margin-bottom:10px}
-    .tool-modal textarea:focus{border-color:var(--accent)}
-    .tool-modal input[type=text],.tool-modal input[type=password]{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.3);color:#fff;font-size:13px;outline:none;margin-bottom:10px}
-    .tool-modal input:focus{border-color:var(--accent)}
+    .tool-modal textarea{width:100%;height:100px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.3);color:#fff;font-size:13px;resize:vertical;outline:none;font-family:monospace;margin-bottom:10px;box-sizing:border-box}
+    .tool-modal input[type=text],.tool-modal input[type=password]{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.3);color:#fff;font-size:13px;outline:none;margin-bottom:10px;box-sizing:border-box}
+    .tool-modal input:focus,.tool-modal textarea:focus{border-color:var(--accent)}
     .tool-modal .btn-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}
     .tool-modal button{padding:8px 16px;border-radius:8px;border:none;font-weight:600;cursor:pointer;font-size:13px;transition:all .2s}
-    .tool-modal .result-area{margin-top:12px;padding:10px;background:rgba(0,0,0,0.3);border-radius:8px;border:1px solid rgba(255,255,255,0.1);font-family:monospace;font-size:13px;word-break:break-all;max-height:150px;overflow-y:auto}
+    .tool-modal .result-area{margin-top:12px;padding:10px;background:rgba(0,0,0,0.3);border-radius:8px;border:1px solid rgba(255,255,255,0.1);font-family:monospace;font-size:13px;word-break:break-all;max-height:150px;overflow-y:auto;color:#fff}
     
-    /* 文件合并区 */
     .file-drop-zone{border:2px dashed rgba(96,165,250,0.4);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .3s;margin-bottom:12px}
     .file-drop-zone:hover,.file-drop-zone.dragover{border-color:var(--accent);background:rgba(96,165,250,0.05)}
     .file-list-merge{max-height:150px;overflow-y:auto;margin:10px 0;font-size:12px}
@@ -89,12 +85,11 @@
     <h2 class="section-title">—— SMALL 3 领域 ——</h2>
 
     <div class="category-buttons">
-      <button class="category-btn-folder active" data-category="crack-tools"><span class="folder-ico">📁</span>实用破解工具</button>
-      <button class="category-btn-folder" data-category="system-tools"><span class="folder-ico">🗂️</span>系统优化及修改工具</button>
-      <button class="category-btn-folder" data-category="online-tools"><span class="folder-ico">🔧</span>在线工具</button>
+      <button class="category-btn-folder active" data-category="crack-tools"><span>📁</span>实用破解工具</button>
+      <button class="category-btn-folder" data-category="system-tools"><span>🗂️</span>系统优化工具</button>
+      <button class="category-btn-folder" data-category="online-tools"><span>🔧</span>在线工具</button>
     </div>
 
-    <!-- 实用破解工具 -->
     <div id="crack-tools" class="category-container-folder active">
       <div class="folder-content">
         <ul class="links">
@@ -109,7 +104,6 @@
       </div>
     </div>
 
-    <!-- 系统优化工具 -->
     <div id="system-tools" class="category-container-folder">
       <div class="folder-content">
         <ul class="links">
@@ -122,12 +116,11 @@
       </div>
     </div>
 
-    <!-- ★ 在线工具（新增） -->
     <div id="online-tools" class="category-container-folder">
       <div class="folder-content">
         <ul class="links">
           <li><div class="card tool-card" onclick="openTool('hash')"><div class="title">🔐 哈希值生成</div><div class="desc">SHA-256 / SHA-1 / MD5</div></div></li>
-          <li><div class="card tool-card" onclick="openTool('encrypt')"><div class="title">🔒 文本加解密</div><div class="desc">AES-GCM 加密，密码保护</div></div></li>
+          <li><div class="card tool-card" onclick="openTool('encrypt')"><div class="title">🔒 文本加解密</div><div class="desc">AES-GCM加密，密码保护</div></div></li>
           <li><div class="card tool-card" onclick="openTool('merge')"><div class="title">📦 文件合并</div><div class="desc">合并分片文件（.part000 .part001...）</div></div></li>
         </ul>
       </div>
@@ -137,59 +130,76 @@
   <footer><div class="small">本站由 <a href="https://github.com" target="_blank">GitHub</a> 支持</div><div class="small">© Small 3</div></footer>
 </main>
 
-<!-- 工具弹窗 -->
 <div class="tool-modal-overlay" id="toolOverlay" onclick="if(event.target===this)closeTool()">
-  <div class="tool-modal" id="toolModal">
-    <div id="toolContent"></div>
-    <div style="text-align:center;margin-top:12px"><button class="category-btn-folder" style="display:inline;width:auto;padding:6px 16px;font-size:12px" onclick="closeTool()">关闭</button></div>
-  </div>
+  <div class="tool-modal" id="toolModal"><div id="toolContent"></div><div style="text-align:center;margin-top:12px"><button style="background:rgba(255,255,255,0.1);color:var(--text);border:1px solid rgba(255,255,255,0.2);padding:6px 16px;border-radius:8px;cursor:pointer;font-size:12px" onclick="closeTool()">关闭</button></div></div>
 </div>
 
 <script>
 function handleAvatarError(){document.getElementById('avatarImg').style.display='none';document.getElementById('avatarFallback').style.display='flex'}
-function showToast(m){var t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove()},2000)}
 
 (function(){var ai=document.querySelector('.avatar-img'),af=document.querySelector('.avatar-fallback');if(ai&&af){ai.onload=function(){ai.style.display='block';af.style.display='none'};ai.onerror=function(){ai.style.display='none';af.style.display='flex'};if(ai.complete&&ai.naturalWidth>0){ai.style.display='block';af.style.display='none'}}})();
 
-// 分类切换
-document.querySelectorAll('.category-btn-folder').forEach(function(b){b.addEventListener('click',function(){var id=this.getAttribute('data-category');var active=this.classList.contains('active');document.querySelectorAll('.category-btn-folder').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.category-container-folder').forEach(function(x){x.classList.remove('active')});if(!active){this.classList.add('active');var t=document.getElementById(id);if(t)setTimeout(function(){t.classList.add('active')},50)}})});
+// ★ 修复：分类切换不用动画，直接用 display
+document.querySelectorAll('.category-btn-folder').forEach(function(b){b.addEventListener('click',function(){var id=this.getAttribute('data-category');var active=this.classList.contains('active');document.querySelectorAll('.category-btn-folder').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.category-container-folder').forEach(function(x){x.classList.remove('active')});if(!active){this.classList.add('active');var t=document.getElementById(id);if(t)t.classList.add('active')}})});
+
+// base64 工具
+function bytesToBase64(bytes){var chars=[];for(var i=0;i<bytes.length;i++){chars.push(String.fromCharCode(bytes[i]))}return btoa(chars.join(''))}
+function base64ToBytes(b64){var str=atob(b64);var bytes=new Uint8Array(str.length);for(var i=0;i<str.length;i++){bytes[i]=str.charCodeAt(i)}return bytes}
 
 // ═══════════ 在线工具 ═══════════
 function openTool(type){
   document.getElementById('toolOverlay').style.display='flex';
   var c=document.getElementById('toolContent');
-  if(type==='hash'){c.innerHTML='<h4>🔐 哈希值生成</h4><textarea id="hashInput" placeholder="输入要计算哈希的文本..."></textarea><div class="btn-row"><button class="btn-primary" onclick="calcHash(\'SHA-256\')">SHA-256</button><button class="btn-primary" onclick="calcHash(\'SHA-1\')">SHA-1</button><button class="btn-primary" onclick="calcHash(\'MD5\')">MD5</button></div><div class="result-area" id="hashResult">结果将显示在这里</div>'}
-  else if(type==='encrypt'){c.innerHTML='<h4>🔒 文本加解密</h4><textarea id="encText" placeholder="输入要加密/解密的文本..."></textarea><input type="password" id="encPass" placeholder="输入密码"><div class="btn-row"><button class="btn-primary" onclick="doEncrypt()">🔒 加密</button><button class="btn-primary" onclick="doDecrypt()">🔓 解密</button></div><div class="result-area" id="encResult">结果将显示在这里</div>'}
-  else if(type==='merge'){c.innerHTML='<h4>📦 文件合并</h4><p style="font-size:12px;opacity:0.7">选择 .part000 .part001 ... 分片文件，自动排序合并下载</p><div class="file-drop-zone" id="mergeDropZone" onclick="document.getElementById(\'mergeFileInput\').click()"><div>📁 点击选择文件 或 拖拽到此处</div><input type="file" id="mergeFileInput" multiple style="display:none" onchange="handleMergeFiles(this.files)"></div><div class="file-list-merge" id="mergeFileList"></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="mergeProgress"></div></div><div id="mergeInfo" style="font-size:11px;opacity:0.7;text-align:center"></div><div class="btn-row"><button class="btn-primary" id="mergeBtn" onclick="doMerge()" disabled>合并下载</button></div>'}
+  if(type==='hash'){
+    c.innerHTML='<h4>🔐 哈希值生成</h4><textarea id="hashInput" placeholder="输入要计算哈希的文本..."></textarea><div class="btn-row"><button class="btn-primary" onclick="calcHash(\'SHA-256\')" style="background:var(--accent);color:#fff">SHA-256</button><button class="btn-primary" onclick="calcHash(\'SHA-1\')" style="background:var(--accent);color:#fff">SHA-1</button><button class="btn-primary" onclick="calcHash(\'MD5\')" style="background:var(--accent);color:#fff">MD5</button></div><div class="result-area" id="hashResult">结果将显示在这里</div>'
+  }else if(type==='encrypt'){
+    c.innerHTML='<h4>🔒 文本加解密</h4><textarea id="encText" placeholder="输入要加密/解密的文本..."></textarea><input type="password" id="encPass" placeholder="输入密码"><div class="btn-row"><button onclick="doEncrypt()" style="background:var(--accent);color:#fff">🔒 加密</button><button onclick="doDecrypt()" style="background:var(--accent);color:#fff">🔓 解密</button></div><div class="result-area" id="encResult">结果将显示在这里</div>'
+  }else if(type==='merge'){
+    c.innerHTML='<h4>📦 文件合并</h4><p style="font-size:12px;opacity:0.7">选择 .part000 .part001 ... 分片文件，自动排序合并下载</p><div class="file-drop-zone" id="mergeDropZone" onclick="document.getElementById(\'mergeFileInput\').click()"><div>📁 点击选择文件 或 拖拽到此处</div><input type="file" id="mergeFileInput" multiple style="display:none" onchange="handleMergeFiles(this.files)"></div><div class="file-list-merge" id="mergeFileList"></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="mergeProgress"></div></div><div id="mergeInfo" style="font-size:11px;opacity:0.7;text-align:center"></div><div class="btn-row"><button id="mergeBtn" onclick="doMerge()" disabled style="background:var(--accent);color:#fff">合并下载</button></div>'
+  }
 }
 function closeTool(){document.getElementById('toolOverlay').style.display='none'}
 
-// ═══════════ 哈希 ═══════════
+// 哈希
 async function calcHash(algo){var t=document.getElementById('hashInput').value;if(!t)return;var h;if(algo==='MD5'){h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));h=h.slice(0,16)}else{h=await crypto.subtle.digest(algo,new TextEncoder().encode(t))}document.getElementById('hashResult').textContent=Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0')}).join('')}
 
-// ═══════════ 加解密 ═══════════
-async function doEncrypt(){var t=document.getElementById('encText').value;var p=document.getElementById('encPass').value;if(!t||!p)return;var k=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));var key=await crypto.subtle.importKey('raw',k,{name:'AES-GCM'},false,['encrypt']);var iv=crypto.getRandomValues(new Uint8Array(12));var enc=await crypto.subtle.encrypt({name:'AES-GCM',iv:iv},key,new TextEncoder().encode(t));var combined=new Uint8Array(iv.length+enc.length);combined.set(iv);combined.set(new Uint8Array(enc),12);document.getElementById('encResult').textContent=btoa(String.fromCharCode.apply(null,combined))}
-async function doDecrypt(){var t=document.getElementById('encText').value;var p=document.getElementById('encPass').value;if(!t||!p)return;var k=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));var key=await crypto.subtle.importKey('raw',k,{name:'AES-GCM'},false,['decrypt']);var data=atob(t);var bytes=new Uint8Array(data.length);for(var i=0;i<data.length;i++)bytes[i]=data.charCodeAt(i);var iv=bytes.slice(0,12);var ct=bytes.slice(12);try{var dec=await crypto.subtle.decrypt({name:'AES-GCM',iv:iv},key,ct);document.getElementById('encResult').textContent=new TextDecoder().decode(dec)}catch(e){document.getElementById('encResult').textContent='解密失败，密码错误或数据损坏'}}
+// 加解密（已验证成功的方法）
+async function doEncrypt(){
+  var t=document.getElementById('encText').value;var p=document.getElementById('encPass').value;
+  if(!t||!p){document.getElementById('encResult').textContent='请输入文本和密码';return}
+  var k=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));
+  var key=await crypto.subtle.importKey('raw',k,{name:'AES-GCM'},false,['encrypt']);
+  var iv=crypto.getRandomValues(new Uint8Array(12));
+  var encBuf=await crypto.subtle.encrypt({name:'AES-GCM',iv:iv},key,new TextEncoder().encode(t));
+  var encArr=new Uint8Array(encBuf);var result=new Uint8Array(12+encArr.length);result.set(iv,0);result.set(encArr,12);
+  document.getElementById('encResult').textContent=bytesToBase64(result)
+}
 
-// ═══════════ 文件合并 ═══════════
+async function doDecrypt(){
+  var t=document.getElementById('encText').value;var p=document.getElementById('encPass').value;
+  if(!t||!p){document.getElementById('encResult').textContent='请输入文本和密码';return}
+  try{
+    var k=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));
+    var key=await crypto.subtle.importKey('raw',k,{name:'AES-GCM'},false,['decrypt']);
+    var bytes=base64ToBytes(t);var iv=bytes.slice(0,12);var ct=bytes.slice(12);
+    var dec=await crypto.subtle.decrypt({name:'AES-GCM',iv:iv},key,ct);
+    document.getElementById('encResult').textContent=new TextDecoder().decode(dec)
+  }catch(e){document.getElementById('encResult').textContent='解密失败，密码错误或数据损坏'}
+}
+
+// 文件合并
 var mergeFiles=[];
 function handleMergeFiles(files){mergeFiles=[];for(var i=0;i<files.length;i++)mergeFiles.push(files[i]);mergeFiles.sort(function(a,b){return a.name.localeCompare(b.name)});var list=document.getElementById('mergeFileList');list.innerHTML='';var totalSize=0;for(var i=0;i<mergeFiles.length;i++){totalSize+=mergeFiles[i].size;list.innerHTML+='<div><span>'+mergeFiles[i].name+'</span><span>'+(mergeFiles[i].size/1048576).toFixed(1)+' MB</span></div>'}document.getElementById('mergeInfo').textContent='共 '+mergeFiles.length+' 个文件，总大小: '+(totalSize/1048576).toFixed(1)+' MB';document.getElementById('mergeBtn').disabled=mergeFiles.length<2}
 
 async function doMerge(){
   if(mergeFiles.length<2)return;var totalSize=0;for(var i=0;i<mergeFiles.length;i++)totalSize+=mergeFiles[i].size;
   var merged=new Uint8Array(totalSize);var offset=0;var pb=document.getElementById('mergeProgress');var info=document.getElementById('mergeInfo');
-  for(var i=0;i<mergeFiles.length;i++){
-    info.textContent='正在处理: '+mergeFiles[i].name+' ('+(i+1)+'/'+mergeFiles.length+')';
-    var data=new Uint8Array(await mergeFiles[i].arrayBuffer());merged.set(data,offset);offset+=data.length;
-    pb.style.width=(((i+1)/mergeFiles.length)*100)+'%';
-  }
-  var baseName=mergeFiles[0].name.replace(/\.part\d{3}$/,'');
-  var blob=new Blob([merged]);var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=baseName;a.click();URL.revokeObjectURL(url);
-  info.textContent='✅ 合并完成！下载: '+baseName+' ('+(totalSize/1048576).toFixed(1)+' MB)';pb.style.width='100%';
-  setTimeout(function(){pb.style.width='0%';info.textContent='';document.getElementById('mergeBtn').disabled=true;mergeFiles=[];document.getElementById('mergeFileList').innerHTML=''},3000);
+  for(var i=0;i<mergeFiles.length;i++){info.textContent='处理: '+mergeFiles[i].name+' ('+(i+1)+'/'+mergeFiles.length+')';var data=new Uint8Array(await mergeFiles[i].arrayBuffer());merged.set(data,offset);offset+=data.length;pb.style.width=(((i+1)/mergeFiles.length)*100)+'%'}
+  var baseName=mergeFiles[0].name.replace(/\.part\d{3}$/,'');var blob=new Blob([merged]);var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=baseName;a.click();URL.revokeObjectURL(url);
+  info.textContent='✅ 完成: '+baseName+' ('+(totalSize/1048576).toFixed(1)+' MB)';pb.style.width='100%';
+  setTimeout(function(){pb.style.width='0%';info.textContent='';mergeFiles=[];document.getElementById('mergeFileList').innerHTML='';document.getElementById('mergeBtn').disabled=true},3000)
 }
 
-// 拖拽
 document.addEventListener('DOMContentLoaded',function(){
   var dz=document.getElementById('mergeDropZone');if(!dz)return;
   dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('dragover')});
